@@ -135,14 +135,16 @@ public class Lab02 {
     }
 
     public static double getAveragePositive(ArrayList<Integer> values){
-        int sum = 0;
-        double avg = 0;
+        double sum = 0.00;
+        double ct = 0.00;
         for (int i=0; i<values.size(); i++){
             if (values.get(i) > 0){
                 sum += values.get(i);
+                ct += 1;
             }
         }
-        return values.size();
+        double avg = sum / ct;
+        return avg;
     }
 
     public static void removeDuplicates(ArrayList<Integer> values){
