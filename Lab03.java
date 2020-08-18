@@ -374,6 +374,48 @@ class ShoppingItem{
 
     }
 }
+class ShoppingList {
+    
+    private String name;
+    private int uniqueID;
+    private ArrayList<ShoppingItem> items = new ArrayList<>();
+
+    // default constructor
+    ShoppingList(String name, int uniqueID){
+        this.name = name;
+        this.uniqueID = uniqueID;
+    }
+
+    public double getTotalCost(){
+        double cost = 0.00;
+        for (int i = 0; i < this.items.size(); i++){
+            cost += this.items.get(i).getItemCost();
+        }
+        return cost;
+    }
+
+    public String getShoppingList(){
+        // The cost of 1.50kg of Bananas = $4.35
+        // The cost of 3 Tissues = $5.70
+        String output = "";
+        for (int i = 0; i < this.items.size(); i++){
+            output += this.items.get(i) + "\n";
+        }
+        return output;
+    }
+
+    public void add(ShoppingItem item){
+        this.items.add(item);
+    }
+
+    public String toString(){
+        return String.format("The total cost of the shopping list for %s is $%.2f.", this.name, this.getTotalCost());
+    }
+}
+
+
+
+
 
 
 
