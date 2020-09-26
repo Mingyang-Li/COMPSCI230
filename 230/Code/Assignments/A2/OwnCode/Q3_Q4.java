@@ -3,7 +3,7 @@ class DynamicRectangleShape extends RectangleShape {
     private Boolean bounced;
     public DynamicRectangleShape(int x, int y, int deltaX, int deltaY, int width, int height){
         super(x, y, deltaX, deltaY, width, height);
-        this.color = red; // or should it be equal to Color.red ? 
+        this.color = Color.red; 
     }
 
     public DynamicRectangleShape(int x, int y, int deltaX, int deltaY, int width, int height, Color color) {
