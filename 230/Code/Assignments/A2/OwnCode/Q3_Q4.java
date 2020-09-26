@@ -8,7 +8,7 @@ class DynamicRectangleShape extends RectangleShape {
 
     public DynamicRectangleShape(int x, int y, int deltaX, int deltaY, int width, int height, Color color) {
         super(x, y, deltaX, deltaY, width, height);
-        this.color = color; // not sure if I'm assigning color correctly
+        this.color = color; 
     }
     @Override public void move(int width, int height){
         /*
@@ -22,7 +22,7 @@ class DynamicRectangleShape extends RectangleShape {
         /*
         if (color is not provide in constructor){
             paint it red 
-            super.paint(Color.red); ??? - not sure if this is how you pass in colors 
+            super.paint(Color.red); 
         } else {
             paint it with the color specified 
         }
