@@ -1,58 +1,34 @@
-package bounce;
+import java.awt.Image;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
-/**
- * Class to represent a simple rectangle.
- * 
- */
-public class RectangleShape extends Shape {
-	/**
-	 * Default constructor that creates a RectangleShape instance whose instance
-	 * variables are set to default values.
-	 */
-	public RectangleShape() {
-		super();
-	}
-	
-	/**
-	 * Creates a RectangleShape object with a specified x and y position.
-	 */
-	public Shape(int x, int y) {
-		this(x, y, DEFAULT_DELTA_X, DEFAULT_DELTA_Y, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-	}
+class ImageRectangleShape extends RectangleShape{
+    public ImageRectangleShape(int deltaX, int deltaY, Image image){
+        //
+    }
+    public static Image makeImage(String imageFileName, int shapeWidth){
+        int sw; //new shape width 
+        int sh; // height of new shape
+        File f; // instance of a file 
+        BufferedImage b, b2; // instances of bufferimage 
+        int w; // width of loaded img 
+        int h; // height of loaded img 
+        double sf; // scale factor 
+        Graphics2D g; // instance of Graphics2D
 
-	/**
-	 * Creates a RectangleShape instance with specified values for instance 
-	 * variables.
-	 * @param x x position.
-	 * @param y y position.
-	 * @param deltaX speed and direction for horizontal axis.
-	 * @param deltaY speed and direction for vertical axis.
-	 */
-	public RectangleShape(int x, int y, int deltaX, int deltaY) {
-		super(x,y,deltaX,deltaY);
-	}
-	
-	/**
-	 * Creates a RectangleShape instance with specified values for instance 
-	 * variables.
-	 * @param x x position.
-	 * @param y y position.
-	 * @param deltaX speed (pixels per move call) and direction for horizontal 
-	 *        axis.
-	 * @param deltaY speed (pixels per move call) and direction for vertical 
-	 *        axis.
-	 * @param width width in pixels.
-	 * @param height height in pixels.
-	 */
-	public RectangleShape(int x, int y, int deltaX, int deltaY, int width, int height) {
-		super(x,y,deltaX,deltaY,width,height);
-	}
-	
-	/**
-	 * Paints the rectangle using the supplied Painter.
-	 */
-	@Override
-	public void paint(Painter painter) {
-		painter.drawRect(_x,_y,_width,_height);
-	}
+        f = new File("myImage");
+
+        b2 = b;
+        w = b.getWidth();
+        h = b.getHeight();
+        if (w > sw){
+            sf = sw / w;
+            sh = h * sf;
+            b2 = "new BufferedImage object"; //  supplying sw and sh as parameters
+            g = "new Graphics2D object by calling method createGraphics() on b2";
+            drawImage(b, sw, sh);
+        }
+    }
+
 }
