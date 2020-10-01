@@ -13,13 +13,13 @@ class ImageRectangleShape extends RectangleShape{
         //
     }
 
-    public static makeImage(){
+    public static void makeImage(){
         int sw; //new shape width 
         int sh; // height of new shape
         File f; // instance of a file 
         BufferedImage b, b2; // instances of bufferimage 
         int w; // width of loaded img 
-        int // height of loaded img 
+        int h; // height of loaded img 
         double sf; // scale factor 
         Graphics2D g; // instance of Graphics2D
 
