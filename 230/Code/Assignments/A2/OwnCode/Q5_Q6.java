@@ -2,39 +2,45 @@ import java.awt.Image;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import javax.imageio.ImageIO;
+import java.io.IOException;  // Import this class to handle errors
 
-class ImageRectangleShape extends RectangleShape{
-    
-
-    public ImageRectangleShape(int deltaX, int deltaY, Image image){
-        //
-    }
-    public static Image makeImage(String imageFileName, int shapeWidth){
-        //
-    }
-
-    public static void makeImage(){
-        int sw; //new shape width 
-        int sh; // height of new shape
-        File f; // instance of a file 
-        BufferedImage b, b2; // instances of bufferimage 
-        int w; // width of loaded img 
-        int h; // height of loaded img 
-        double sf; // scale factor 
-        Graphics2D g; // instance of Graphics2D
-
-        f = new File("myImage");
-
-        b2 = b;
-        w = b.getWidth();
-        h = b.getHeight();
-        if (w > sw){
-            sf = sw / w;
-            sh = h * sf;
-            b2 = "new BufferedImage object"; //  supplying sw and sh as parameters
-            g = "new Graphics2D object by calling method createGraphics() on b2";
-            drawImage(b, sw, sh);
-        }
+public class ImageRectangleShape extends RectangleShape{
+	Image image;
+	int sw;
+	int sh;
+	public ImageRectangleShape(int deltaX, int deltaY, Image image){
+		super(DEFAULT_X_POS, DEFAULT_Y_POS, deltaX, deltaY, image.getWidth(null), image.getHeight(null));
+		image = image;
+		sw = image.getWidth(null);
+		sh = image.getHeight(null);
     }
 
+	public static Image makeImage(String imageFileName, int shapeWidth){
+		int sw = shapeWidth;
+		double sf = 0.00;
+
+		File f = new File(imageFileName);
+		BufferedImage b = null;
+		try {
+			b = ImageIO.read(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		double w = b.getWidth();
+		double h = b.getHeight();
+		if(w > sw){
+			sf = (double) (sw / w);
+		}
+		int sh = (int) (h * sf);
+		BufferedImage b2 = new BufferedImage(sw, sh, b.getType());
+		Graphics2D g = b2.createGraphics();
+		g.drawImage(b, 0, 0, sw, sh, null);
+		return b2;
+	}
+    @Override
+	public void paint(Painter painter) {
+		painter.drawImage(image, _x, _y, sw, sh);
+	}
 }
