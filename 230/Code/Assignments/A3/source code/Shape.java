@@ -35,6 +35,14 @@ public abstract class Shape {
 
 	protected int _height;
 
+	protected Color _color;
+  
+	protected boolean _bounceX;
+	
+	protected NestingShape _parent = null;
+	
+	protected String _text = null;
+
 
 	/**
 	 * Creates a Shape object with default values for instance variables.
@@ -154,6 +162,27 @@ public abstract class Shape {
 	@Override
 	public String toString() {
 		return getClass().getName();
+	}
+
+	public List<Shape> path() {
+		boolean root = false;
+		List<Shape> list, rootList = null;
+		list = new ArrayList<Shape>();
+		list.add(this);
+	
+		if (this._parent != null){
+			rootList = this._parent.path();
+			root = rootList.addAll(list);
+		}
+	
+		if (root){
+			return rootList;
+		}
+		return list;
+	}
+
+	public Object text() {
+		return _text;
 	}
 }
 
