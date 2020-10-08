@@ -2,51 +2,54 @@
  * Creates a NestingShape object with default values.
  */
 
-import java.util.ArrayList;
-
 public class NestingShape extends Shape{
+    public ArrayList<Shape> innerShapes;
+
     public NestingShape(){
-        super(Shape.DEFAULT_X_POS, Shape.DEFAULT_Y_POS);
+        super(Shape.DEFAULT_X_POS, Shape.DEFAULT_Y_POS, Shape.DEFAULT_DELTA_X, Shape.DEFAULT_DELTA_Y, Shape.DEFAULT_WIDTH, Shape.DEFAULT_HEIGHT);
+        innerShapes = new ArrayList<Shape>();
     }
     
     public NestingShape (int x, int y){
-        super(x, y, Shape.DEFAULT_X_POS, Shape.DEFAULT_Y_POS);
+        super(x, y, Shape.DEFAULT_X_POS, Shape.DEFAULT_Y_POS, Shape.DEFAULT_WIDTH, Shape.DEFAULT_HEIGHT);
+        innerShapes = new ArrayList<Shape>();
     }
     
     public NestingShape (int x, int y, int deltaX, int deltaY){
         super(x, y, deltaX, deltaY, Shape.DEFAULT_WIDTH, Shape.DEFAULT_HEIGHT);
+        innerShapes = new ArrayList<Shape>();
     }
     
     public void move (int width, int height){
         for(Shape s : innerShapes){	
-			s.move(fWidth, fHeight);
+			s.move(_width, _height);
 		}
 		super.move(width, height);
     }
     
     @Override
     public void paint (Painter painter){
-        painter.drawRect(fX, fY, fWidth, fHeight);
-		painter.translate(fX,fY);
+        painter.drawRect(_x, _y, _width, _height);
+		painter.translate(_x, _y);
 		for(Shape s : innerShapes){
 			s.paint(painter);
 		}
-		painter.translate(-fX,-fY);
+		painter.translate(-_x, -_y);
     }
     
     void add (Shape shape){
-        int innerShapeWidth = shape.fWidth + shape.fX;
-		int innerShapeWidthXPosition = shape.fWidth;
-		int innerShapeWidthYPosition = shape.fHeight;
-		int innerShapeHeight = shape.fHeight + shape.fY;
+        int innerShapeWidth = shape._width + shape._x;
+		int innerShapeWidthXPosition = shape._width;
+		int innerShapeWidthYPosition = shape._height;
+		int innerShapeHeight = shape._height + shape._y;
 		try {	
 			this.innerShapes.add(shape);
 			shape.fParent = this;
-			if(innerShapeHeight > this.fHeight && innerShapeWidth > this.fWidth){	
-				throw new IllegalArgumentException();			
-			}
-			if(innerShapeWidthXPosition >this.fWidth && innerShapeWidthYPosition > this.fHeight){	
-				throw new IllegalArgumentException();
+			if(
+                (innerShapeHeight > this._height && innerShapeWidth > this._width) || 
+                (innerShapeWidthXPosition >this._width && innerShapeWidthYPosition > this._height)
+            ){	
+                throw new IllegalArgumentException();			
 			}
 		} catch (IllegalArgumentException e){
 			this.innerShapes.contains(shape);
@@ -63,19 +66,19 @@ public class NestingShape extends Shape{
 		}
     }
     
-    public Shape shapeAt (int index){
+    Shape shapeAt (int index){
         return innerShapes.get(index);
     }
     
-    public int shapeCount (){
+    int shapeCount (){
         return innerShapes.size();
     }
     
-    public int indexOf (Shape shape){
+    int indexOf (Shape shape){
         return innerShapes.indexOf(shape);
     }
     
-    public boolean contains (Shape shape){
+    boolean contains (Shape shape){
         for(Shape s : innerShapes){
 			if(s.equals(shape)){
 				return true;
