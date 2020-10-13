@@ -7,7 +7,7 @@
  * to handle shape-specific painting. 
  *
  */
-public abstract class Shape {
+abstract class Shape {
 	// === Constants for default values. ===
 	protected static final int DEFAULT_X_POS = 0;
 	
@@ -34,14 +34,6 @@ public abstract class Shape {
 	protected int _width;
 
 	protected int _height;
-
-	protected Color _color;
-  
-	protected boolean _bounceX;
-	
-	protected NestingShape _parent = null;
-	
-	protected String _text = null;
 
 
 	/**
@@ -162,27 +154,6 @@ public abstract class Shape {
 	@Override
 	public String toString() {
 		return getClass().getName();
-	}
-
-	public List<Shape> path() {
-		boolean root = false;
-		List<Shape> list, rootList = null;
-		list = new ArrayList<Shape>();
-		list.add(this);
-	
-		if (this._parent != null){
-			rootList = this._parent.path();
-			root = rootList.addAll(list);
-		}
-	
-		if (root){
-			return rootList;
-		}
-		return list;
-	}
-
-	public Object text() {
-		return _text;
 	}
 }
 
