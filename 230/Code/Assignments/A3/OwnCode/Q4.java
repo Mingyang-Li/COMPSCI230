@@ -193,9 +193,8 @@ public class RectangleShape extends Shape {
         _text = text;
     }
 
-	@Override
-	public void paint(Painter painter) {
-		painter.drawRect(_x, _y, _width, _height);
+	protected void doPaint(Painter painter){
+		painter.drawCenteredText(_x, _y, _width, _height);
 	}
 }
 
